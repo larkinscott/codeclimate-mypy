@@ -1,0 +1,11 @@
+{
+  "name": "mypy",
+  "description": "Mypy is an experimental optional static type checker for Python that aims to combine the benefits of dynamic (or 'duck') typing and static typing.",
+  "maintainer": {
+    "name": "Scott Larkin",
+    "email": "scott@codeclimate.com"
+  },
+  "languages" : ["Python"],
+  "version": "0.1",
+  "spec_version": "0.3.1"
+}
