@@ -11,6 +11,8 @@ line_number_regex = ":(\d+):"
 file_name_regex = "^(.+?):"
 issue_description_error_regex = "error(.*)"
 issue_description_note_regex = "note(.*)"
+# need to add this regex in
+issue_description_warning_regex = "warning(.*)"
 
 try:
     with open('/config.json') as config_file:
@@ -65,8 +67,10 @@ def analyze(python_files: list) -> str:
             issue_description = re.search(issue_description_error_regex, issue)
             if issue_description is not None:
                 issue_description = issue_description.group(1)
-            else:
+            elif issue_description is None:
                 issue_description = re.search(issue_description_note_regex, issue).group(1)
+            else:
+                issue_description = re.search(issue_description_warning_regex, issue).group(1)
 
             codeclimate_json = dict()
             codeclimate_json['type'] = 'issue'
@@ -97,7 +101,7 @@ def analyze(python_files: list) -> str:
     if mypy_output[1]:
         unsuccessful_result = mypy_output[1]
 
-        print(unsuccessful_result)
+        print(unsuccessful_result, file=sys.stdout)
 
 python_files = file_path()
 
